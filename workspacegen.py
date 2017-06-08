@@ -42,8 +42,8 @@ def process_yml(parsed: list) -> list:
             sha256 = entry["sha256"]
         if "strip_prefix" in entry:
             strip_prefix = entry["strip_prefix"]
-        if "urls_list" in entry:
-            urls_list = entry["urls_list"]
+        if "urls" in entry:
+            urls_list = entry["urls"]
         if "remotes" in entry:
             remotes_list = entry["remotes"]
         if "commit" in entry:
@@ -71,12 +71,13 @@ def process_yml(parsed: list) -> list:
                 ]
                 strip_prefix = f"{gh_repo}-{commit}"
 
-        # get the first file in urls_list and calculate a sha256 hash
-        print(f"Downloading {urls_list[0]}")
-        r = requests.get(urls_list[0])
-        # TODO: error handling
-        print(f"Hashing {urls_list[0]} (size: {len(r.content)})")
-        sha256 = hashlib.sha256(r.content).hexdigest()
+        if "sha256" not in entry:
+            # get the first file in urls_list and calculate a sha256 hash
+            print(f"Downloading {urls_list[0]}")
+            r = requests.get(urls_list[0])
+            # TODO: error handling
+            print(f"Hashing {urls_list[0]} (size: {len(r.content)})")
+            sha256 = hashlib.sha256(r.content).hexdigest()
 
         # currently only new_http_archive is supported...
         if rule == "new_http_archive":
@@ -99,6 +100,7 @@ def render_template(content: list, template_environment):
 def main(arguments) -> int:
     template_environment = jinja2.Environment(
         loader=jinja2.FileSystemLoader("."))
+    whole_file = {"content": []}
     for yml_file in arguments["<yml_file>"]:
         print(f"Processing {yml_file}")
         with open(yml_file, "r") as current_file:
@@ -107,11 +109,15 @@ def main(arguments) -> int:
             except yaml.YAMLError as exc:
                 print(exc)
         to_render = process_yml(parsed)
+        whole_file["content"].extend(to_render["content"])
         rendered = render_template(to_render, template_environment)
         # TODO: splitting filenames like this is ugly and brittle, change it!
         with open(yml_file.split(".")[0] + ".WORKSPACE", "w") as build_file:
             build_file.write(rendered)
         # TODO: run buildifier over the rendered template?
+    rendered = render_template(whole_file, template_environment)
+    with open("WORKSPACE", "w") as build_file:
+        build_file.write(rendered)
     return 0
 
 

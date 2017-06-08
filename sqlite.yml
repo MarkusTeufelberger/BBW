@@ -1,0 +1,145 @@
+- rule: new_http_archive
+  name: sqlite_3_19_3
+  build_file: sqlite.BUILD
+  strip_prefix: sqlite-amalgamation-3190300
+  urls:
+    - http://www.sqlite.org/2017/sqlite-amalgamation-3190300.zip
+
+- name: sqlite_3_19_2
+  strip_prefix: sqlite-amalgamation-3190200
+  urls:
+    - http://www.sqlite.org/2017/sqlite-amalgamation-3190200.zip
+
+- name: sqlite_3_19_1
+  strip_prefix: sqlite-amalgamation-3190100
+  urls:
+    - http://www.sqlite.org/2017/sqlite-amalgamation-3190100.zip
+
+- name: sqlite_3_19_0
+  strip_prefix: sqlite-amalgamation-3190000
+  urls:
+    - http://www.sqlite.org/2017/sqlite-amalgamation-3190000.zip
+
+- name: sqlite_3_18_0
+  strip_prefix: sqlite-amalgamation-3180000
+  urls:
+    - http://www.sqlite.org/2017/sqlite-amalgamation-3180000.zip
+
+- name: sqlite_3_17_0
+  strip_prefix: sqlite-amalgamation-3170000
+  urls:
+    - http://www.sqlite.org/2017/sqlite-amalgamation-3170000.zip
+
+- name: sqlite_3_16_2
+  strip_prefix: sqlite-amalgamation-3160200
+  urls:
+    - http://www.sqlite.org/2017/sqlite-amalgamation-3160200.zip
+
+- name: sqlite_3_16_1
+  strip_prefix: sqlite-amalgamation-3160100
+  urls:
+    - http://www.sqlite.org/2017/sqlite-amalgamation-3160100.zip
+
+- name: sqlite_3_16_0
+  strip_prefix: sqlite-amalgamation-3160000
+  urls:
+    - http://www.sqlite.org/2017/sqlite-amalgamation-3160000.zip
+
+- name: sqlite_3_15_2
+  strip_prefix: sqlite-amalgamation-3150200
+  urls:
+    - http://www.sqlite.org/2016/sqlite-amalgamation-3150200.zip
+
+- name: sqlite_3_15_1
+  strip_prefix: sqlite-amalgamation-3150100
+  urls:
+    - http://www.sqlite.org/2016/sqlite-amalgamation-3150100.zip
+
+- name: sqlite_3_15_0
+  strip_prefix: sqlite-amalgamation-3150000
+  urls:
+    - http://www.sqlite.org/2016/sqlite-amalgamation-3150000.zip
+
+- name: sqlite_3_14_2
+  strip_prefix: sqlite-amalgamation-3140200
+  urls:
+    - http://www.sqlite.org/2016/sqlite-amalgamation-3140200.zip
+
+- name: sqlite_3_14_1
+  strip_prefix: sqlite-amalgamation-3140100
+  urls:
+    - http://www.sqlite.org/2016/sqlite-amalgamation-3140100.zip
+
+- name: sqlite_3_14
+  strip_prefix: sqlite-amalgamation-3140000
+  urls:
+    - http://www.sqlite.org/2016/sqlite-amalgamation-3140000.zip
+
+- name: sqlite_3_13_0
+  strip_prefix: sqlite-amalgamation-3130000
+  urls:
+    - http://www.sqlite.org/2016/sqlite-amalgamation-3130000.zip
+
+- name: sqlite_3_12_2
+  strip_prefix: sqlite-amalgamation-3120200
+  urls:
+    - http://www.sqlite.org/2016/sqlite-amalgamation-3120200.zip
+
+# Files not available upstream
+
+#- name: sqlite_3_12_1
+#  strip_prefix: sqlite-amalgamation-3120100
+#  urls:
+#    - http://www.sqlite.org/2016/sqlite-amalgamation-3120100.zip
+
+#- name: sqlite_3_12_0
+#  strip_prefix: sqlite-amalgamation-3120000
+#  urls:
+#    - http://www.sqlite.org/2016/sqlite-amalgamation-3120000.zip
+
+- name: sqlite_3_11_1
+  strip_prefix: sqlite-amalgamation-3110100
+  urls:
+    - http://www.sqlite.org/2016/sqlite-amalgamation-3110100.zip
+
+- name: sqlite_3_11_0
+  strip_prefix: sqlite-amalgamation-3110000
+  urls:
+    - http://www.sqlite.org/2016/sqlite-amalgamation-3110000.zip
+
+- name: sqlite_3_10_2
+  strip_prefix: sqlite-amalgamation-3100200
+  urls:
+    - http://www.sqlite.org/2016/sqlite-amalgamation-3100200.zip
+
+- name: sqlite_3_10_1
+  strip_prefix: sqlite-amalgamation-3100100
+  urls:
+    - http://www.sqlite.org/2016/sqlite-amalgamation-3100100.zip
+
+- name: sqlite_3_10_0
+  strip_prefix: sqlite-amalgamation-3100000
+  urls:
+    - http://www.sqlite.org/2016/sqlite-amalgamation-3100000.zip
+
+# Files not available upstream
+
+#- name: sqlite_3_9_3
+#  strip_prefix: sqlite-amalgamation-3090300
+#  urls:
+#    - http://www.sqlite.org/2016/sqlite-amalgamation-3090300.zip
+
+- name: sqlite_3_9_2
+  strip_prefix: sqlite-amalgamation-3090200
+  urls:
+    - http://www.sqlite.org/2015/sqlite-amalgamation-3090200.zip
+
+- name: sqlite_3_9_1
+  strip_prefix: sqlite-amalgamation-3090100
+  urls:
+    - http://www.sqlite.org/2015/sqlite-amalgamation-3090100.zip
+
+- name: sqlite_3_9_0
+  strip_prefix: sqlite-amalgamation-3090000
+  urls:
+    - http://www.sqlite.org/2015/sqlite-amalgamation-3090000.zip

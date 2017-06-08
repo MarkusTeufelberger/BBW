@@ -7,7 +7,7 @@ This makes it less verbose than writing these rules by hand and also automatical
 
 Written in Python 3.6+, f-strings are awesome!
 
-Snappy was chosen since it is relatively self containes, has relatively few commits, yet is still horrible to build (thanks to autotools!).
+Snappy was chosen since it is relatively self contained, has relatively few commits, yet is still horrible to build (thanks to autotools!).
 
 The Vagrantfile installs Bazel and the necessary tools to build the generated snappy.WORKSPACE.
 
