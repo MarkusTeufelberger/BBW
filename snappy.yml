@@ -1,0 +1,43 @@
+- rule: new_http_archive
+  name: snappy_1_1_4
+  build_file: snappy.1.1.x.BUILD
+  remotes:
+    # There is special handling for github repos
+    # so they can be automatically rewritten to
+    # new_http_archive rules.
+    # Ideally, it wouldn't be even necessary to 
+    # define which rule to use; just where the
+    # repo is, the commit hash, the build file
+    # and the name of the release
+    - https://github.com/google/snappy
+  commit: 2d99bd14d471664758e4dfdf81b44f413a7353fd
+
+- name: snappy_1_1_3
+  commit: efb39e81b8b66b757ec900db33657c47b4750740
+
+- name: snappy_1_1_2
+  commit: 1ff9be9b8fafc8528ca9e055646f5932aa5db9c4
+
+- name: snappy_1_1_1
+  commit: eeead8dc38ea359f027fb6e89f345448e8e9d723
+
+- name: snappy_1_1_0
+  commit: bde324c0169763688f35ee44630a26ad1f49eec3
+
+- name: snappy_1_0_5
+  # This BUILD file will be used in rules below
+  # instead of the one previously defined
+  build_file: snappy.1.0.x.BUILD
+  commit: fc723b212d6972af7051261754770b3f70a7dc03
+
+- name: snappy_1_0_4
+  commit: 21a2e4f55758e759302cd84ad0f3580affcba7d9
+
+- name: snappy_1_0_3
+  commit: 8efa2639e885ac467e7b11c662975c5844019fb9
+
+- name: snappy_1_0_2
+  commit: bcecf195c0aeb2c98144d3d54b4d8d228774f50d
+
+- name: snappy_1_0_1
+  commit: c47640c510eb11cf8913edfa34f667bceb3a4401
