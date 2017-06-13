@@ -1,89 +1,108 @@
 - rule: new_http_archive
   name: sqlite_3_19_3
-  build_file: sqlite.BUILD
+  build_file: sqlite3.BUILD
   strip_prefix: sqlite-amalgamation-3190300
   urls:
     - http://www.sqlite.org/2017/sqlite-amalgamation-3190300.zip
+  sha256: 130185efe772a7392c5cecb4613156aba12f37b335ef91e171c345e197eabdc1
+  targets:
+    - sqlite
 
 - name: sqlite_3_19_2
   strip_prefix: sqlite-amalgamation-3190200
   urls:
     - http://www.sqlite.org/2017/sqlite-amalgamation-3190200.zip
+  sha256: c85282af6ef30538dfc74d1814c87547df8588d970b9360cadd66d096bcfd20a
 
 - name: sqlite_3_19_1
   strip_prefix: sqlite-amalgamation-3190100
   urls:
     - http://www.sqlite.org/2017/sqlite-amalgamation-3190100.zip
+  sha256: caea339fcf8caf7dc533c7bb8a85634c624ab489fcffa5a84bc6182e8acff984
 
 - name: sqlite_3_19_0
   strip_prefix: sqlite-amalgamation-3190000
   urls:
     - http://www.sqlite.org/2017/sqlite-amalgamation-3190000.zip
+  sha256: 9c452a117cf72e41fec97f6cd6c3832bd09750ded1a88d89d49ccb2d6cf910ac
 
 - name: sqlite_3_18_0
   strip_prefix: sqlite-amalgamation-3180000
   urls:
     - http://www.sqlite.org/2017/sqlite-amalgamation-3180000.zip
+  sha256: 1cfb91106650a12840e107db29f2ec4afe3d7f9dc5936770ef53bc3eb6387b6e
 
 - name: sqlite_3_17_0
   strip_prefix: sqlite-amalgamation-3170000
   urls:
     - http://www.sqlite.org/2017/sqlite-amalgamation-3170000.zip
+  sha256: ad3d5152f7dd09117654736b416e656c46de83b251e71a14b9a2de3aab29cfb2
 
 - name: sqlite_3_16_2
   strip_prefix: sqlite-amalgamation-3160200
   urls:
     - http://www.sqlite.org/2017/sqlite-amalgamation-3160200.zip
+  sha256: 3ea98729366ec1d38d13a860aa10cfe29a355bfe089c32080987e2771514c42b
 
 - name: sqlite_3_16_1
   strip_prefix: sqlite-amalgamation-3160100
   urls:
     - http://www.sqlite.org/2017/sqlite-amalgamation-3160100.zip
+  sha256: 7c75d544d6a1627b176a17999a22ca871acab33c686ae0e3a2553bde475aa1f9
 
 - name: sqlite_3_16_0
   strip_prefix: sqlite-amalgamation-3160000
   urls:
     - http://www.sqlite.org/2017/sqlite-amalgamation-3160000.zip
+  sha256: 3b5dfb65807e2b17e6463357df848e322badba01dc9a4a1de8fdbb72d448e3b0
 
 - name: sqlite_3_15_2
   strip_prefix: sqlite-amalgamation-3150200
   urls:
     - http://www.sqlite.org/2016/sqlite-amalgamation-3150200.zip
+  sha256: 37e4bffc5568434267617a83671e0b9b39bbcb3732fd75cbcbce250cbd5fd091
 
 - name: sqlite_3_15_1
   strip_prefix: sqlite-amalgamation-3150100
   urls:
     - http://www.sqlite.org/2016/sqlite-amalgamation-3150100.zip
+  sha256: 7143be3e0b48aa687858ab4767b7d4a79a47de26ca159c6fab6e87b6c7f10fe4
 
 - name: sqlite_3_15_0
   strip_prefix: sqlite-amalgamation-3150000
   urls:
     - http://www.sqlite.org/2016/sqlite-amalgamation-3150000.zip
+  sha256: 356109b55f76a9851f9bb90e8e3d722da222e26f657f76a471fdf4d7983964b9
 
 - name: sqlite_3_14_2
   strip_prefix: sqlite-amalgamation-3140200
   urls:
     - http://www.sqlite.org/2016/sqlite-amalgamation-3140200.zip
+  sha256: ec57b271d48faea6af01bb3e10ca732d46d83bc95a400fe63015fb358a78b302
 
 - name: sqlite_3_14_1
   strip_prefix: sqlite-amalgamation-3140100
   urls:
     - http://www.sqlite.org/2016/sqlite-amalgamation-3140100.zip
+  sha256: b7a8bccbe55df471f3f4ba84e789372606025eaccd09b05f80a41591282a2a41
 
 - name: sqlite_3_14
   strip_prefix: sqlite-amalgamation-3140000
   urls:
     - http://www.sqlite.org/2016/sqlite-amalgamation-3140000.zip
+  sha256: 32843740eaaa4d9ac567d6babe18099ef6f38c6731718c2d37b26d381c629ec8
 
 - name: sqlite_3_13_0
   strip_prefix: sqlite-amalgamation-3130000
   urls:
     - http://www.sqlite.org/2016/sqlite-amalgamation-3130000.zip
+  sha256: f9ef8811f5f221d81a3ba811a8dfdcc54b19acc6d8032c74719ff95ed0026611
 
 - name: sqlite_3_12_2
   strip_prefix: sqlite-amalgamation-3120200
   urls:
     - http://www.sqlite.org/2016/sqlite-amalgamation-3120200.zip
+  sha256: 6e012367e659b594f79cd472eac35c8addc015e8706e37e2a1feb1ee79e8e374
 
 # Files not available upstream
 
@@ -101,28 +120,33 @@
   strip_prefix: sqlite-amalgamation-3110100
   urls:
     - http://www.sqlite.org/2016/sqlite-amalgamation-3110100.zip
+  sha256: 538d5a7471d05185d79e6efc8c2e3578c0daaf09aa9c5b24807391a5380a5df7
 
 - name: sqlite_3_11_0
   strip_prefix: sqlite-amalgamation-3110000
   urls:
     - http://www.sqlite.org/2016/sqlite-amalgamation-3110000.zip
+  sha256: a621bbf11796b95154daa0c34ec690c65ba4e789120760ced072df4324649979
 
 - name: sqlite_3_10_2
   strip_prefix: sqlite-amalgamation-3100200
   urls:
     - http://www.sqlite.org/2016/sqlite-amalgamation-3100200.zip
+  sha256: b68adfb8cfd0ba5712e0ed8346929538ceb9125d6de4d15049db56201ac794f6
 
 - name: sqlite_3_10_1
   strip_prefix: sqlite-amalgamation-3100100
   urls:
     - http://www.sqlite.org/2016/sqlite-amalgamation-3100100.zip
+  sha256: d4531ab752be6a93ead813f892ab6501f455363a6934f86ee8dd9d405071225c
 
 - name: sqlite_3_10_0
   strip_prefix: sqlite-amalgamation-3100000
   urls:
     - http://www.sqlite.org/2016/sqlite-amalgamation-3100000.zip
+  sha256: dba2988915cb52d01c6eabffb20cbcb55fd88dede310b4984eb87c2fc230d466
 
-# Files not available upstream
+# File not available upstream
 
 #- name: sqlite_3_9_3
 #  strip_prefix: sqlite-amalgamation-3090300
@@ -133,13 +157,18 @@
   strip_prefix: sqlite-amalgamation-3090200
   urls:
     - http://www.sqlite.org/2015/sqlite-amalgamation-3090200.zip
+  sha256: 567139c94375e3808a11f34d81f534d0c257e2c498cddbf4cac283d74b51fe9c
 
 - name: sqlite_3_9_1
   strip_prefix: sqlite-amalgamation-3090100
   urls:
     - http://www.sqlite.org/2015/sqlite-amalgamation-3090100.zip
+  sha256: 5e25da9f46d6a7b2a378d26c5069b1efec0b5d1707376d9c34b4f24c329bd74e
 
 - name: sqlite_3_9_0
   strip_prefix: sqlite-amalgamation-3090000
   urls:
     - http://www.sqlite.org/2015/sqlite-amalgamation-3090000.zip
+  sha256: e92e77efb885a1b2a2b9c1813b7c6ebd8ececa39e36428d6ff0845825e97553b
+
+# ...and so on, see http://sqlite.org/chronology.html for more version numbers

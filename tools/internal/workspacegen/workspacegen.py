@@ -2,14 +2,16 @@
 """WORKSPACE file generator.
 
 Usage:
-  workspacegen.py (<yml_file>...)
+  workspacegen.py (<directory>)
   workspacegen.py (-h | --help)
 
 Options:
   -h --help     Show this screen.
 """
 
+import glob
 import hashlib
+import pathlib
 import sys
 
 import docopt
@@ -18,7 +20,7 @@ import requests
 import yaml
 
 
-def process_yml(parsed: list) -> list:
+def process_workspace_yml(parsed: list) -> dict:
     rule = ""
     name = ""
     build_file = ""
@@ -93,31 +95,27 @@ def process_yml(parsed: list) -> list:
     return output
 
 
-def render_template(content: list, template_environment):
+def render_workspace_template(content: list, template_environment):
     return template_environment.get_template("WORKSPACE.j2").render(content)
 
 
 def main(arguments) -> int:
     template_environment = jinja2.Environment(
-        loader=jinja2.FileSystemLoader("."))
-    whole_file = {"content": []}
-    for yml_file in arguments["<yml_file>"]:
+        loader=jinja2.FileSystemLoader("tools/internal/workspacegen/templates"))
+    mypath = pathlib.Path(arguments["<directory>"])
+    for yml_file in list(mypath.glob("**/*.yml")):
         print(f"Processing {yml_file}")
-        with open(yml_file, "r") as current_file:
+        with yml_file.open() as current_file:
             try:
                 parsed = yaml.load(current_file)
-            except yaml.YAMLError as exc:
-                print(exc)
-        to_render = process_yml(parsed)
-        whole_file["content"].extend(to_render["content"])
-        rendered = render_template(to_render, template_environment)
+            except yaml.YAMLError as exception:
+                print(exception)
+        workspace_to_render = process_workspace_yml(parsed)
+        rendered_workspace = render_workspace_template(workspace_to_render, template_environment)
         # TODO: splitting filenames like this is ugly and brittle, change it!
-        with open(yml_file.split(".")[0] + ".WORKSPACE", "w") as build_file:
-            build_file.write(rendered)
+        with yml_file.parent.joinpath("WORKSPACE").open(mode="w") as workspace_file:
+            workspace_file.write(rendered_workspace)
         # TODO: run buildifier over the rendered template?
-    rendered = render_template(whole_file, template_environment)
-    with open("WORKSPACE", "w") as build_file:
-        build_file.write(rendered)
     return 0
 
 

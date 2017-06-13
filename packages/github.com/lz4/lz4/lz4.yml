@@ -1,0 +1,16 @@
+- rule: new_http_archive
+  name: lz4_1_7_5
+  build_file: lz4.BUILD
+  remotes:
+    # There is special handling for github repos
+    # so they can be automatically rewritten to
+    # new_http_archive rules.
+    # Ideally, it wouldn't be even necessary to 
+    # define which rule to use; just where the
+    # repo is, the commit hash, the build file
+    # and the name of the release
+    - https://github.com/lz4/lz4
+  commit: 7bb64ff2b69a9f8367de9ab483cdadf42b4c1b65
+  sha256: a2f670a90ab52360712e656e0272ac06e1a4b58aede8334a1a359bace3d32ae1
+  targets:
+    - lz4
