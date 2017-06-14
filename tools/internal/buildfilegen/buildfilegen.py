@@ -46,8 +46,6 @@ def process_build_yml(parsed: list) -> dict:
         "deps_list": [],
         })
 
-    
-
     for entry in parsed:
         if "name" in entry:
             name = entry["name"]
@@ -68,41 +66,12 @@ def process_build_yml(parsed: list) -> dict:
             "files_list": [f"@{name}//:{target}" for target in target_list],
             })
 
-        # add individual tarballl to global_tarball
+        # add individual tarball to global_tarball
         for buildrule in enumerate(output["content"]):
                 if buildrule[1]["name"] == "global_tarball":
                     output["content"][buildrule[0]]["deps_list"].append(f":{name}")
 
-
-
-
-
-        # currently only filegroup rule is supported...
-        #if rule != "filegroup":
-        #    raise NotImplementedError
-
-        #if rule == "filegroup":
-        #    for buildrule in enumerate(output["content"]):
-        #        if buildrule[1]["name"] == "global_filegroup":
-        #            for target in target_list:
-        #                output["content"][buildrule[0]]["srcs_list"].append(f"@{name}//:{target}")
-
-
-            #output["content"].append({
-            #    "rule": rule,
-            #    "name": f"dummy_rule_for_{name}",
-            #    "srcs_list": [f"@{name}//:{target}" for target in target_list],
-            #})
-
-    # TODO: create more complex rule(s) to be able to easily check reproducibility and/or run smoke tests (e.g. simple import + hello world)
-    
-    
-
-    #output["content"].append({
-    #    "rule": "pkg_tar",
-    #    "name": "dummy_name",
-    #    "files_list": [":global_filegroup"]
-    #    })
+    # TODO: create more complex rule(s) to be able to run smoke tests (e.g. simple import + hello world)
     return output
 
 
