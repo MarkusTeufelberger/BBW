@@ -18,12 +18,35 @@ import yaml
 
 
 def process_build_yml(parsed: list) -> dict:
-    rule = "filegroup"
+    rule = ""
     name = ""
     srcs_list = ""
     target_list = ""
 
-    output = {"content": []}
+
+    output = {
+        "header_list": [],
+        "content": [],
+    }
+
+    # tar archive rule header
+    output["header_list"].append('load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")')
+
+    # global filegroup
+    output["content"].append({
+        "rule": "filegroup",
+        "name": "global_filegroup",
+        "srcs_list": [],
+        })
+
+    # global tarball
+    output["content"].append({
+        "rule": "pkg_tar",
+        "name": "global_tarball",
+        "deps_list": [],
+        })
+
+    
 
     for entry in parsed:
         if "name" in entry:
@@ -31,18 +54,55 @@ def process_build_yml(parsed: list) -> dict:
         if "targets" in entry:
             target_list = entry["targets"]
 
-        # currently only filegroup rule is supported...
-        if rule != "filegroup":
-            raise NotImplementedError
+        # Add target(s) to global_filegroup
+        for buildrule in enumerate(output["content"]):
+                if buildrule[1]["name"] == "global_filegroup":
+                    for target in target_list:
+                        output["content"][buildrule[0]]["srcs_list"].append(f"@{name}//:{target}")
 
-        if rule == "filegroup":
-            output["content"].append({
-                "rule": rule,
-                "name": f"dummy_rule_for_{name}",
-                "srcs_list": [f"@{name}//:{target}" for target in target_list],
+        # create individual tarball
+        output["content"].append({
+            "rule": "pkg_tar",
+            "name": f"{name}",
+            "package_dir": f"/{name}",
+            "files_list": [f"@{name}//:{target}" for target in target_list],
             })
 
+        # add individual tarballl to global_tarball
+        for buildrule in enumerate(output["content"]):
+                if buildrule[1]["name"] == "global_tarball":
+                    output["content"][buildrule[0]]["deps_list"].append(f":{name}")
+
+
+
+
+
+        # currently only filegroup rule is supported...
+        #if rule != "filegroup":
+        #    raise NotImplementedError
+
+        #if rule == "filegroup":
+        #    for buildrule in enumerate(output["content"]):
+        #        if buildrule[1]["name"] == "global_filegroup":
+        #            for target in target_list:
+        #                output["content"][buildrule[0]]["srcs_list"].append(f"@{name}//:{target}")
+
+
+            #output["content"].append({
+            #    "rule": rule,
+            #    "name": f"dummy_rule_for_{name}",
+            #    "srcs_list": [f"@{name}//:{target}" for target in target_list],
+            #})
+
     # TODO: create more complex rule(s) to be able to easily check reproducibility and/or run smoke tests (e.g. simple import + hello world)
+    
+    
+
+    #output["content"].append({
+    #    "rule": "pkg_tar",
+    #    "name": "dummy_name",
+    #    "files_list": [":global_filegroup"]
+    #    })
     return output
 
 

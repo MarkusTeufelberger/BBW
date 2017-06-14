@@ -26,6 +26,11 @@ Snappy was chosen since it is relatively self contained, has relatively few comm
 
 The Vagrantfile installs Bazel and the necessary tools to build the generated snappy.WORKSPACE.
 
+# Tips and Tricks
+
+git clone a repo and check with git show-ref --tags which commits have which tag to get a quick overview of releases.
+
+
 
 All of the content here is subject to change, this is more of a public backup.
 The lack of a license is intentional to discourage people from building upon this.

@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
     curl https://bazel.build/bazel-release.pub.gpg | apt-key add -
     apt-get update
     apt-get upgrade -y
-    apt-get install -y bazel automake libtool pkg-config python2.7
+    apt-get install -y bazel automake libtool pkg-config python2.7 python-minimal
     bazel version
   SHELL
 end
