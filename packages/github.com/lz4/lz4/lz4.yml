@@ -1,6 +1,6 @@
 - rule: new_http_archive
   name: lz4_1_7_5
-  build_file: lz4.BUILD
+  build_file: lz4_1_7_5+.BUILD
   remotes:
     # There is special handling for github repos
     # so they can be automatically rewritten to
@@ -14,8 +14,16 @@
   sha256: a2f670a90ab52360712e656e0272ac06e1a4b58aede8334a1a359bace3d32ae1
   targets:
     - lz4
+    - lz4_hc
+    - lz4_frame
+  smoke_tests:
+    - rule: cc_binary
+      name: import_test
+      source_files:
+        - lz4.cc
 
 - name: lz4_1_7_4_2
+  build_file: lz4_r126+.BUILD
   commit: 018ddf799917ee5c68b5266d6f42277fa6750080
   sha256: 96310f13a2a18dc57df988c8827f1b66edfb1a93dc5a59865b8b9f12593dd773
 
@@ -47,15 +55,18 @@
   commit: e25b51de7b51101e04ceea194dd557fcc23c03ca
   sha256: 034d27277d06398f9902b2cbc58e05e3b0410e7adbc0745d17ff9a78771e90dd
 
+# identical with r127 on purpose
 - name: lz4_r126
   commit: e25b51de7b51101e04ceea194dd557fcc23c03ca
   sha256: 034d27277d06398f9902b2cbc58e05e3b0410e7adbc0745d17ff9a78771e90dd
 
 - name: lz4_r125
+  build_file: lz4_r125.BUILD
   commit: a5358e602a526b844d6872c0b46087044651feb3
   sha256: 94dca57ba27f54751f6d8e7fc9d642591aed2db183cf4439b143b170b229051d
 
 - name: lz4_r124
+  build_file: lz4_r123+.BUILD
   commit: ca353cfe6e6ed078501774f0a25d2eb8190036c9
   sha256: ad5f36750d17bbcd9c21d8c567b702271aec03181ab11db7586c2f3db0c631fa
 
@@ -64,8 +75,17 @@
   sha256: 1eb518eb784cf882511426ef332da6f1dc34705cc9bcf4e04fb40316c512ea47
 
 - name: lz4_r122
+  build_file: lz4_r116+.BUILD
   commit: 6e9183ba44a6863f99023c82e8d9752a8a0a92a6
   sha256: d1eec3fffed8f5eb15ca96bb74b6ef1a617cd8b1c137e7534bdfe6a9e3666a93
+  targets:
+    - lz4
+    - lz4_hc
+  smoke_tests:
+    - rule: cc_binary
+      name: import_test
+      source_files:
+        - lz4_no_frame.cc
 
 - name: lz4_r121
   commit: 8dc446dd46d5dfad1997491899ae7164a3a69aa8

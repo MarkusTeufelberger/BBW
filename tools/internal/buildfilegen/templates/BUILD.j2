@@ -37,5 +37,20 @@
     {% endif -%}
 )
 {% endif -%}
+{% if entry.rule == "cc_binary" -%}
+{{ entry.rule }}(
+    name = "{{ entry.name }}",
+    deps = [
+    {% for dep in entry.deps_list -%}
+    "{{ dep }}",
+    {% endfor -%}
+    ],
+    srcs = [
+    {% for src in entry.srcs_list -%}
+    "{{ src }}",
+    {% endfor -%}
+    ],
+)
+{% endif -%}
 
 {% endfor -%}

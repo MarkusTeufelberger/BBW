@@ -23,6 +23,8 @@ def process_build_yml(parsed: list) -> dict:
     srcs_list = ""
     target_list = ""
 
+    tests_list = ""
+
 
     output = {
         "header_list": [],
@@ -51,12 +53,14 @@ def process_build_yml(parsed: list) -> dict:
             name = entry["name"]
         if "targets" in entry:
             target_list = entry["targets"]
+        if "smoke_tests" in entry:
+            tests_list = entry["smoke_tests"]
 
         # Add target(s) to global_filegroup
         for buildrule in enumerate(output["content"]):
-                if buildrule[1]["name"] == "global_filegroup":
-                    for target in target_list:
-                        output["content"][buildrule[0]]["srcs_list"].append(f"@{name}//:{target}")
+            if buildrule[1]["name"] == "global_filegroup":
+                for target in target_list:
+                    output["content"][buildrule[0]]["srcs_list"].append(f"@{name}//:{target}")
 
         # create individual tarball
         output["content"].append({
@@ -68,10 +72,18 @@ def process_build_yml(parsed: list) -> dict:
 
         # add individual tarball to global_tarball
         for buildrule in enumerate(output["content"]):
-                if buildrule[1]["name"] == "global_tarball":
-                    output["content"][buildrule[0]]["deps_list"].append(f":{name}")
+            if buildrule[1]["name"] == "global_tarball":
+                output["content"][buildrule[0]]["deps_list"].append(f":{name}")
 
-    # TODO: create more complex rule(s) to be able to run smoke tests (e.g. simple import + hello world)
+        # create individual smoke tests
+        for smoketest in tests_list:
+            output["content"].append({
+                "rule": smoketest["rule"],
+                "name": smoketest["name"] + f"_{name}",
+                "deps_list": [f"@{name}//:{target}" for target in target_list],
+                "srcs_list": [f"{filename}" for filename in smoketest["source_files"]],
+                })
+
     return output
 
 
@@ -92,7 +104,6 @@ def main(arguments) -> int:
                 print(exception)
         build_to_render = process_build_yml(parsed)
         rendered_build = render_build_template(build_to_render, template_environment)
-        # TODO: add path to file
         with yml_file.parent.joinpath("BUILD").open(mode="w") as build_file:
             build_file.write(rendered_build)
         # TODO: run buildifier over the rendered template?

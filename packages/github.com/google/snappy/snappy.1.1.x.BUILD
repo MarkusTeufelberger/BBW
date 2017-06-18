@@ -26,13 +26,15 @@ genrule(
 
 cc_library(
     name = "snappy",
-    srcs = glob(
-        ["*.cc"],
+    srcs = glob([
+            "*.cc",
+            "*.h",
+        ],
         exclude = [
             "snappy-test.cc",
             "snappy_unittest.cc",
         ],
-    ),
-    hdrs = [":generated_headers"] + glob(["*.h"]),
+        ) + [":generated_headers"],
+    hdrs = ["snappy.h"],
     visibility = ["//visibility:public"],
 )

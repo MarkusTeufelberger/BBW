@@ -7,6 +7,11 @@
   sha256: 130185efe772a7392c5cecb4613156aba12f37b335ef91e171c345e197eabdc1
   targets:
     - sqlite
+  smoke_tests:
+    - rule: cc_binary
+      name: import_test
+      source_files:
+        - sqlite3.cc
 
 - name: sqlite_3_19_2
   strip_prefix: sqlite-amalgamation-3190200

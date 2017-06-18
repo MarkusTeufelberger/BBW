@@ -15,6 +15,11 @@
   # This is defined in the BUILD file
   targets:
     - snappy
+  smoke_tests:
+    - rule: cc_binary
+      name: import_test
+      source_files:
+        - snappy.cc
 
 - name: snappy_1_1_3
   commit: efb39e81b8b66b757ec900db33657c47b4750740
