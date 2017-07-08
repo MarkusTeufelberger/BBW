@@ -1,5 +1,6 @@
 - rule: new_http_archive
-  name: lz4_1_7_5
+  name: lz4
+  version: 1.7.5
   build_file: lz4_1_7_5+.BUILD
   remotes:
     # There is special handling for github repos
@@ -22,59 +23,59 @@
       source_files:
         - lz4.cc
 
-- name: lz4_1_7_4_2
+- version: 1.7.4.2
   build_file: lz4_r126+.BUILD
   commit: 018ddf799917ee5c68b5266d6f42277fa6750080
   sha256: 96310f13a2a18dc57df988c8827f1b66edfb1a93dc5a59865b8b9f12593dd773
 
-- name: lz4_1_7_4
+- version: 1.7.4
   commit: cc21115cb4f9ff1f97322104ffb19ca89b5a0eb1
   sha256: d5d2055cd595ffc7948fae6a4469ec82f587d58e10dad6bc281c2c61f02e717c
 
-- name: lz4_1_7_3
+- version: 1.7.3
   commit: 7fde7438d39f8452f89e3fee5ba4a16c502dffb0
   sha256: b34ef977971a941c68b1570770a5b0f5191819a3e8a15b17d9e11d8c50869703
 
-- name: lz4_r131
+- version: r131
   commit: d86dc916771c126afb797637dda9f6421c0cb998
   sha256: da6fd916e239e2c6825e2821e38cc10df1cac7f3b512a05ddfac443fd0a8a50a
 
-- name: lz4_r130
+- version: r130
   commit: baf78e7e4dcbdf824a76f990ffeb573d113bbbdb
   sha256: 35edc9e112c76de3978a919e6ee00f60700881d866e65abf8cf660a2f3de179a
 
-- name: lz4_r129
+- version: r129
   commit: 7d182b816ace89d6d6d16b7aee376a9962a05caa
   sha256: 912d6a7ffe04eb7b1d301504dcc0211bfad6be66e0e1b122383a9882c622ca1f
 
-- name: lz4_r128
+- version: r128
   commit: 160661c7a4cbf805f4af74d2e3932a17a66e6ce7
   sha256: 0518bf2a1d7677a2359fd4e4d1086492361348973d80b78bc1d71d160054ef3b
 
-- name: lz4_r127
+- version: r127
   commit: e25b51de7b51101e04ceea194dd557fcc23c03ca
   sha256: 034d27277d06398f9902b2cbc58e05e3b0410e7adbc0745d17ff9a78771e90dd
 
 # identical with r127 on purpose
-- name: lz4_r126
+- version: r126
   commit: e25b51de7b51101e04ceea194dd557fcc23c03ca
   sha256: 034d27277d06398f9902b2cbc58e05e3b0410e7adbc0745d17ff9a78771e90dd
 
-- name: lz4_r125
+- version: r125
   build_file: lz4_r125.BUILD
   commit: a5358e602a526b844d6872c0b46087044651feb3
   sha256: 94dca57ba27f54751f6d8e7fc9d642591aed2db183cf4439b143b170b229051d
 
-- name: lz4_r124
+- version: r124
   build_file: lz4_r123+.BUILD
   commit: ca353cfe6e6ed078501774f0a25d2eb8190036c9
   sha256: ad5f36750d17bbcd9c21d8c567b702271aec03181ab11db7586c2f3db0c631fa
 
-- name: lz4_r123
+- version: r123
   commit: c0054caa236abd41032a27e37c75abef07ee99d7
   sha256: 1eb518eb784cf882511426ef332da6f1dc34705cc9bcf4e04fb40316c512ea47
 
-- name: lz4_r122
+- version: r122
   build_file: lz4_r116+.BUILD
   commit: 6e9183ba44a6863f99023c82e8d9752a8a0a92a6
   sha256: d1eec3fffed8f5eb15ca96bb74b6ef1a617cd8b1c137e7534bdfe6a9e3666a93
@@ -87,26 +88,26 @@
       source_files:
         - lz4_no_frame.cc
 
-- name: lz4_r121
+- version: r121
   commit: 8dc446dd46d5dfad1997491899ae7164a3a69aa8
   sha256: 67776b795a1960eb7ac5cabf7d13aec4016a7971143e597321406951fc784044
 
-- name: lz4_r120
+- version: r120
   commit: 3f607b55edba5ffd724146e958ab487f97692da5
   sha256: 7f3907ccad5df7b1470a8aef5b17bae427b5c899b7484d21c3edf4bcc1091661
 
-- name: lz4_r119
+- version: r119
   commit: 28fd251bc7b42e5cde15f9a2d78fc53b3b575558
   sha256: 0cd743e7364c605c7d9b85773ddbedeee952c5be39213de9d51c0820f30a2629
 
-- name: lz4_r118
+- version: r118
   commit: 0665c503564a284b3ee71f955bb58bd19563e906
   sha256: 09168a2df256bb0caa9a3efa23de753c6b083dfe97f493ed41713a85008590e3
 
-- name: lz4_r117
+- version: r117
   commit: dac2a0946d854e1fcb9547b3cc40db835432cece
   sha256: 05f3eb3e4bd0017f915b6206954c28c30eb93005a57bb430ee3378046834f9f3
 
-- name: lz4_r116
+- version: r116
   commit: 5817fdc121128b9b2dc645fffbd7e9f969e895c3
   sha256: 6d5b72c6b35447c8f281d89ae34b261ca18a88baa05485438b2a0526fd48787a

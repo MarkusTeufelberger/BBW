@@ -1,5 +1,6 @@
 - rule: new_http_archive
-  name: snappy_1_1_4
+  name: snappy
+  version: 1.1.4
   build_file: snappy.1.1.x.BUILD
   remotes:
     # There is special handling for github repos
@@ -21,41 +22,41 @@
       source_files:
         - snappy.cc
 
-- name: snappy_1_1_3
+- version: 1.1.3
   commit: efb39e81b8b66b757ec900db33657c47b4750740
   sha256: 72f34af528ff0d55090178ebbaeb499f871c7ea34b413f3930825c69430bba8b
 
-- name: snappy_1_1_2
+- version: 1.1.2
   commit: 1ff9be9b8fafc8528ca9e055646f5932aa5db9c4
   sha256: 9f7ab7ba342cf2e224c287ed7c7c7019b5965d6c18bb7a507be74a590e1e2b47
 
-- name: snappy_1_1_1
+- version: 1.1.1
   commit: eeead8dc38ea359f027fb6e89f345448e8e9d723
   sha256: c0eb8ee739798928c310b28d77cbfa3e556405fb587773a7019f53d152ea4e42
 
-- name: snappy_1_1_0
+- version: 1.1.0
   commit: bde324c0169763688f35ee44630a26ad1f49eec3
   sha256: aabf56b2db5f843d6d60cd69a4202ae331a453fb7b818ddc2ff0b23e4e283c0a
 
-- name: snappy_1_0_5
+- version: 1.0.5
   # This BUILD file will be used in rules below
   # instead of the one previously defined
   build_file: snappy.1.0.x.BUILD
   commit: fc723b212d6972af7051261754770b3f70a7dc03
   sha256: f30ab72845cd36dc43f93542afcabbaca5f8739dcf855538f233d9e21ee2722e
 
-- name: snappy_1_0_4
+- version: 1.0.4
   commit: 21a2e4f55758e759302cd84ad0f3580affcba7d9
   sha256: 4bd8149dbe254b17ccb414c718048e2f59daa0d136403076507fbf24e134d307
 
-- name: snappy_1_0_3
+- version: 1.0.3
   commit: 8efa2639e885ac467e7b11c662975c5844019fb9
   sha256: b58f5b6d8b9421d20aecfe076935733e5f64587a27cc4264387e9e421b914e53
 
-- name: snappy_1_0_2
+- version: 1.0.2
   commit: bcecf195c0aeb2c98144d3d54b4d8d228774f50d
   sha256: 41cd57ac638c95e0e8250f52b0a6900e6c7c287b043a476d9c4bb075e4853350
 
-- name: snappy_1_0_1
+- version: 1.0.1
   commit: c47640c510eb11cf8913edfa34f667bceb3a4401
   sha256: 1063682803a3957331a70a46c32fd4d68cf6bd8c6913319f2fe22a8cba10d812

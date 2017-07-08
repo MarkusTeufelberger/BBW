@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""WORKSPACE file generator.
+"""buildozerfile file generator.
 
 Usage:
-  workspacegen.py (<directory>)
-  workspacegen.py (-h | --help)
+  buildozerfilegen.py (<directory>)
+  buildozerfilegen.py (-h | --help)
 
 Options:
   -h --help     Show this screen.
@@ -12,10 +12,10 @@ Options:
 import glob
 import hashlib
 import pathlib
+import shutil
 import sys
 
 import docopt
-import jinja2
 import requests
 import yaml
 
@@ -24,12 +24,27 @@ def create_subfolders(parsed: list, path):
     for entry in parsed:
         if "version" not in entry:
             raise RuntimeError("You need to specify a version for every entry")
+        path.mkdir(exist_ok=True)
         with_version = path / entry["version"]
         assert(with_version.parent == path)
         with_version.mkdir(exist_ok=True)
 
 
-def process_workspace_yml(parsed: list) -> dict:
+def move_build_files(parsed: list, path):
+    build_file = None
+    for entry in parsed:
+        if "version" not in entry:
+            raise RuntimeError("You need to specify a version for every entry")
+        with_version = path / "releases" / entry["version"]
+        if "build_file" in entry:
+            build_file = entry["build_file"]
+        assert(build_file != None)
+        build_file_src = path / "BUILD files" / build_file
+        build_file_dst = with_version / build_file
+        shutil.copyfile(build_file_src, build_file_dst)
+
+
+def create_buildozerfiles(parsed: list) -> dict:
     rule = ""
     name = ""
     build_file = ""
@@ -38,6 +53,8 @@ def process_workspace_yml(parsed: list) -> dict:
     urls_list = ""
     remotes_list = ""
     commit = ""
+    targets_list = ""
+    dependencies_list = ""
 
     output = {}
 
@@ -47,7 +64,7 @@ def process_workspace_yml(parsed: list) -> dict:
         elif entry["version"] in output:
             raise RuntimeError("Versions have to be unique")
         else:
-            output[entry["version"]] = {"content": []}
+            output[entry["version"]] = []
 
         # update whatever is already defined
         if "rule" in entry:
@@ -66,6 +83,10 @@ def process_workspace_yml(parsed: list) -> dict:
             remotes_list = entry["remotes"]
         if "commit" in entry:
             commit = entry["commit"]
+        if "targets" in entry:
+            targets_list = [f"@{name}//:{target}" for target in entry["targets"]]
+        if "deps" in entry:
+            dependencies_list = entry["deps"]
 
         if rule == "new_http_archive":
             # automagic for some common hosts/tasks:
@@ -87,7 +108,7 @@ def process_workspace_yml(parsed: list) -> dict:
                     strip_prefix = f"{gh_repo}-{commit}"
 
             # gitlab.com:
-            # UNTESTED! (especially the "not called archive.bz2" part seems potentially problematic)
+            # UNTESTED! (especially the "not named archive.bz2" part seems potentially problematic)
             # You can get a repository at a certain commit via
             # "https://gitlab.com/<user>/<repo>/repository/archive.tar.bz2?ref=<commit>"
             # Prefix to be stripped from this archive (named <repo>-<commit>-<commit>.tar.bz2 btw, not archive.tar.bz2):
@@ -113,32 +134,24 @@ def process_workspace_yml(parsed: list) -> dict:
                 sha256 = hashlib.sha256(r.content).hexdigest()
                 print(f"Hash: {sha256}")
 
-            output[entry["version"]]["content"].append({
-                "rule": rule,
-                "name": name,
-                "build_file": build_file,
-                "sha256": sha256,
-                "strip_prefix": strip_prefix,
-                "urls_list": urls_list,
-            })
+            output[entry["version"]].append(f"new new_http_archive {name}|-:__pkg__\n")
+            output[entry["version"]].append(f"comment name version\ {entry['version']}|-:{name}\n")
+            output[entry["version"]].append(f"set build_file {build_file}|-:{name}\n")
+            targets_string = ",\ ".join(targets_list)
+            if dependencies_list == "":
+                output[entry["version"]].append(f"comment build_file provides\ :\ {targets_string}|-:{name}\n")
+            else:
+                dependencies_string = ",\ ".join(dependencies_list)
+                output[entry["version"]].append(f"comment build_file provides\ :\ {targets_string};\ depends\ on:\ {dependencies_string}|-:{name}\n")
+            output[entry["version"]].append(f"set sha256 {sha256}|-:{name}\n")
+            output[entry["version"]].append(f"set strip_prefix {strip_prefix}|-:{name}\n")
+            urls_string = ",\ ".join(urls_list)
+            output[entry["version"]].append(f"add urls {urls_string}|-:{name}\n")
 
         # WIP
         elif rule == "new_git_repository":
             # TODO: add skylark rules instead of native ones
-
-            if "init_submodules" in entry and entry["init_submodules"] is True:
-                # don't try to calculate a hash
-                pass
-
-            output[entry["version"]]["content"].append({
-                "rule": rule,
-                "name": name,
-                "build_file": build_file,
-                "init_submodules": init_submodules,
-                "remote": remote,
-                "commit": commit,
-                #"sha256": sha256,
-            })
+            raise NotImplementedError
 
         else:
             raise NotImplementedError
@@ -146,13 +159,7 @@ def process_workspace_yml(parsed: list) -> dict:
     return output
 
 
-def render_workspace_template(content: list, template_environment):
-    return template_environment.get_template("WORKSPACE.j2").render(content)
-
-
 def main(arguments) -> int:
-    template_environment = jinja2.Environment(
-        loader=jinja2.FileSystemLoader("tools/internal/workspacegen/templates"))
     mypath = pathlib.Path(arguments["<directory>"])
     for yml_file in list(mypath.glob("**/*.yml")):
         print(f"Processing {yml_file}")
@@ -161,19 +168,14 @@ def main(arguments) -> int:
                 parsed = yaml.load(current_file)
             except yaml.YAMLError as exception:
                 print(exception)
-        create_subfolders(parsed, yml_file.parent)
-        workspaces_to_render = process_workspace_yml(parsed)
-        for version in workspaces_to_render:
-            rendered_workspace = render_workspace_template(workspaces_to_render[version], template_environment)
-
-            # TODO: splitting filenames like this is ugly and brittle, change it!
-            with yml_file.parent.joinpath(version).joinpath("WORKSPACE").open(mode="w") as workspace_file:
-                workspace_file.write(rendered_workspace)
-            # TODO: run buildifier over the rendered template?
-
-            # move relevant BUILD file
-            # TODO
-
+        create_subfolders(parsed, yml_file.parent / "releases")
+        # move relevant BUILD file
+        move_build_files(parsed, yml_file.parent)
+        buildozerfiles = create_buildozerfiles(parsed)
+        # Write buildozerfiles
+        for version in buildozerfiles:
+            with yml_file.parent.joinpath("releases").joinpath(version).joinpath("buildozerfile").open(mode="w") as buildozerfile:
+                buildozerfile.writelines(buildozerfiles[version])
     return 0
 
 
