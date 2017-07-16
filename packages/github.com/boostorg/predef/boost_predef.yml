@@ -1,0 +1,17 @@
+- rule: new_http_archive
+  name: boost_predef
+  version: 1.64.0
+  build_file: boost_predef.BUILD
+  remotes:
+    - https://github.com/boostorg/predef
+  commit: b0ca8915b5b2357c32e4fba850482aff0d35e51a
+  sha256: 959c5cdf2097a5044b8059c2a2cc24fae396638620016d685a3a232133426a2e
+  targets:
+    - predef
+  smoke_tests:
+    - rule: cc_binary
+      name: predef_import_test
+      deps:
+        - "@boost_predef//:predef"
+      source_files:
+        - predef_import_test.cc

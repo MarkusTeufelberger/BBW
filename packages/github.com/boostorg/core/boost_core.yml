@@ -1,0 +1,19 @@
+- rule: new_http_archive
+  name: boost_core
+  version: 1.64.0
+  build_file: boost_core.BUILD
+  remotes:
+    - https://github.com/boostorg/core
+  commit: a49e7f2f876d7c5c9eb26ddc4d67173be228feaf
+  sha256: 86d7603ba59a1df19c24cc9202a36dbf90a1ee814656327312c65d8ff4e87862
+  targets:
+    - core
+  deps:
+    - "@boost_config//:config"
+  smoke_tests:
+    - rule: cc_binary
+      name: addressof_import_test
+      deps:
+        - "@boost_core//:core"
+      source_files:
+        - addressof_import_test.cc

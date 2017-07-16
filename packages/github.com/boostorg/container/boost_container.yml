@@ -1,0 +1,25 @@
+- rule: new_http_archive
+  name: boost_container
+  version: 1.64.0
+  build_file: boost_container.BUILD
+  remotes:
+    - https://github.com/boostorg/container
+  commit: eebd4c8cf9c0309889a1f74e9b4d0cbf5384786a
+  sha256: 051b3b3ae11acaab687f5051322bcb4eebefd557e6be2b7e1ce92cbfd1f3cda6
+  targets:
+    - container
+  deps:
+    - "@boost_config//:config"
+    - "@boost_intrusive//:intrusive"
+    - "@boost_move//:move"
+    # transitive from move
+    - "@boost_assert//:assert"
+    - "@boost_core//:core"
+    - "@boost_static_assert//:static_assert"
+  smoke_tests:
+    - rule: cc_binary
+      name: container_fwd_import_test
+      deps:
+        - "@boost_container//:container"
+      source_files:
+        - container_fwd_import_test.cc

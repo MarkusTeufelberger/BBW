@@ -1,0 +1,26 @@
+- rule: new_http_archive
+  name: boost_concept_check
+  version: 1.64.0
+  build_file: boost_concept_check.BUILD
+  remotes:
+    - https://github.com/boostorg/concept_check
+  commit: 00496f20101d2d6fae359031c8af1f2c26c95db5
+  sha256: 971b65b3190b4aba9a9c0a7e9258cf4d6d6dd56606e32d3480c5ccd452a60231
+  targets:
+    - concept_check
+  deps:
+    - "@boost_assert//:assert"
+    - "@boost_config//:config"
+    - "@boost_mpl//:mpl"
+    - "@boost_preprocessor//:preprocessor"
+    - "@boost_type_traits//:type_traits"
+    # transitive from type_traits
+    - "@boost_core//:core"
+    - "@boost_static_assert//:static_assert"
+  smoke_tests:
+    - rule: cc_binary
+      name: concept_check_import_test
+      deps:
+        - "@boost_concept_check//:concept_check"
+      source_files:
+        - concept_check_import_test.cc

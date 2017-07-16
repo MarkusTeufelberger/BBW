@@ -19,6 +19,8 @@
   smoke_tests:
     - rule: cc_binary
       name: import_test
+      deps:
+        - "@snappy//:snappy"
       source_files:
         - snappy.cc
 

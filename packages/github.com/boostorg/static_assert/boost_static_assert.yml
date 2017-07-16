@@ -1,0 +1,19 @@
+- rule: new_http_archive
+  name: boost_static_assert
+  version: 1.64.0
+  build_file: boost_static_assert.BUILD
+  remotes:
+    - https://github.com/boostorg/static_assert
+  commit: afe9e9d7864e23d50077115d51fa8ce17fc2e8be
+  sha256: c85c81809a99ed880e009c4e2e834df36bdfafdc1cd5d9b008122173fcda55d5
+  targets:
+    - static_assert
+  deps:
+    - "@boost_config//:config"
+  smoke_tests:
+    - rule: cc_binary
+      name: static_assert_import_test
+      deps:
+        - "@boost_static_assert//:static_assert"
+      source_files:
+        - static_assert_import_test.cc

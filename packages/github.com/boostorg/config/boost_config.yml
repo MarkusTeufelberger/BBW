@@ -1,0 +1,17 @@
+- rule: new_http_archive
+  name: boost_config
+  version: 1.64.0
+  build_file: boost_config.BUILD
+  remotes:
+    - https://github.com/boostorg/config
+  commit: a12301d1cb4d050dfbd5dea93f68491b82921ec4
+  sha256: f4952eed5cb0984fbd32e3827491715a81ab12841a83ee075735955c97d07704
+  targets:
+    - config
+  smoke_tests:
+    - rule: cc_binary
+      name: config_import_test
+      deps:
+        - "@boost_config//:config"
+      source_files:
+        - config_import_test.cc

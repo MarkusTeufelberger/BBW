@@ -1,0 +1,23 @@
+- rule: new_http_archive
+  name: boost_array
+  version: 1.64.0
+  build_file: boost_array.BUILD
+  remotes:
+    - https://github.com/boostorg/array
+  commit: 8f3aea2200fa45ed4c1829b3d3148432867dda87
+  sha256: 2b3707929caff33352b26b9d36c7752883474e41aa46aab1d415565645a71c13
+  targets:
+    - array
+  deps:
+    - "@boost_assert//:assert"
+    - "@boost_config//:config"
+    - "@boost_core//:core"
+    - "@boost_static_assert//:static_assert"
+    - "@boost_throw_exception//:throw_exception"
+  smoke_tests:
+    - rule: cc_binary
+      name: array_import_test
+      deps:
+        - "@boost_array//:array"
+      source_files:
+        - array_import_test.cc

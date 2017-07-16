@@ -1,0 +1,32 @@
+- rule: new_http_archive
+  name: boost_range
+  version: 1.64.0
+  build_file: boost_range.BUILD
+  remotes:
+    - https://github.com/boostorg/range
+  commit: 56d470635de63862856b27be36dbf2eb9d75b043
+  sha256: 9941baa0367354a41333af7e13748265528c999a602c23f30ca9ed2382c2b9df
+  targets:
+    - range
+  deps:
+    - "@boost_concept_check//:concept_check"
+    - "@boost_config//:config"
+    - "@boost_iterator//:iterator"
+    - "@boost_mpl//:mpl"
+    - "@boost_preprocessor//:preprocessor"
+    - "@boost_type_traits//:type_traits"
+    - "@boost_utility//:utility"
+    # transitive from type_traits
+    - "@boost_core//:core"
+    - "@boost_static_assert//:static_assert"
+    # transitive from iterator
+    - "@boost_detail//:detail"
+    # transitive from concept_check
+    - "@boost_assert//:assert"
+  smoke_tests:
+    - rule: cc_binary
+      name: range_import_test
+      deps:
+        - "@boost_range//:range"
+      source_files:
+        - range_import_test.cc

@@ -1,0 +1,22 @@
+- rule: new_http_archive
+  name: boost_move
+  version: 1.64.0
+  build_file: boost_move.BUILD
+  remotes:
+    - https://github.com/boostorg/move
+  commit: 67bda76dadfe5128a02b4819b28228caf0940bc2
+  sha256: c6a0ef425614404eb1e1ea4f1eeb6e54a38af888c42e4a664cf4b1b733005736
+  targets:
+    - move
+  deps:
+    - "@boost_assert//:assert"
+    - "@boost_config//:config"
+    - "@boost_core//:core"
+    - "@boost_static_assert//:static_assert"
+  smoke_tests:
+    - rule: cc_binary
+      name: move_import_test
+      deps:
+        - "@boost_move//:move"
+      source_files:
+        - move_import_test.cc

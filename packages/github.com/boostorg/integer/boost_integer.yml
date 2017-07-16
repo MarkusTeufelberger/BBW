@@ -1,0 +1,20 @@
+- rule: new_http_archive
+  name: boost_integer
+  version: 1.64.0
+  build_file: boost_integer.BUILD
+  remotes:
+    - https://github.com/boostorg/integer
+  commit: 0d964fe6fc65dcbd4772f3a3e5a299f5a320989f
+  sha256: 66b6088f9408beddc1dbee0206966ab6aec7338b187bc9b3a6c3b17b63e45527
+  targets:
+    - integer
+  deps:
+    - "@boost_config//:config"
+    - "@boost_static_assert//:static_assert"
+  smoke_tests:
+    - rule: cc_binary
+      name: integer_import_test
+      deps:
+        - "@boost_integer//:integer"
+      source_files:
+        - integer_import_test.cc

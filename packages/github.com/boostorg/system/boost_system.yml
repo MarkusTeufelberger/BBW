@@ -1,0 +1,22 @@
+- rule: new_http_archive
+  name: boost_system
+  version: 1.64.0
+  build_file: boost_system.BUILD
+  remotes:
+    - https://github.com/boostorg/system
+  commit: 504c5e95eeeb517bdf6680a80e817ecbd0c4f77c
+  sha256: 958a2db27628ceaa0c26dc97b4b216f74783ac55bc3045dabdd937b92d79d430
+  targets:
+    - system
+  deps:
+    - "@boost_assert//:assert"
+    - "@boost_config//:config"
+    - "@boost_core//:core"
+    - "@boost_predef//:predef"
+  smoke_tests:
+    - rule: cc_binary
+      name: system_error_import_test
+      deps:
+        - "@boost_system//:system"
+      source_files:
+        - system_error_import_test.cc

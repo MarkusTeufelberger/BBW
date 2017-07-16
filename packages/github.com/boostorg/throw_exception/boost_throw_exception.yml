@@ -1,0 +1,20 @@
+- rule: new_http_archive
+  name: boost_throw_exception
+  version: 1.64.0
+  build_file: boost_throw_exception.BUILD
+  remotes:
+    - https://github.com/boostorg/throw_exception
+  commit: c548923b32735fcbc6cdf34c8e9b382d58b4b407
+  sha256: d9f2f4ebf83e70b3b7ebc2ac6a4c3216ff733f9bf133344a7d7b10d444efaf6c
+  targets:
+    - throw_exception
+  deps:
+    - "@boost_assert//:assert"
+    - "@boost_config//:config"
+  smoke_tests:
+    - rule: cc_binary
+      name: throw_exception_import_test
+      deps:
+        - "@boost_throw_exception//:throw_exception"
+      source_files:
+        - throw_exception_import_test.cc

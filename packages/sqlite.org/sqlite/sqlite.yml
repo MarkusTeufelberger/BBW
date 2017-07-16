@@ -11,6 +11,8 @@
   smoke_tests:
     - rule: cc_binary
       name: import_test
+      deps:
+        - "@sqlite//:sqlite3"
       source_files:
         - sqlite3_import_test.cc
 

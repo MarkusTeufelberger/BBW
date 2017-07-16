@@ -1,0 +1,17 @@
+- rule: new_http_archive
+  name: boost_assert
+  version: 1.64.0
+  build_file: boost_assert.BUILD
+  remotes:
+    - https://github.com/boostorg/assert
+  commit: 1db4e1759589c61a293b836c0edeff48d3f97f41
+  sha256: 99a31ab0b96ff9f6e82f8dd1e880882383b32bcebb30c85392450b92245ec374
+  targets:
+    - assert
+  smoke_tests:
+    - rule: cc_binary
+      name: assert_import_test
+      deps:
+        - "@boost_assert//:assert"
+      source_files:
+        - assert_import_test.cc

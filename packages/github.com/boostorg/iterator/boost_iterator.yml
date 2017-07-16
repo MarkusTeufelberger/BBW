@@ -1,0 +1,28 @@
+- rule: new_http_archive
+  name: boost_iterator
+  version: 1.64.0
+  build_file: boost_iterator.BUILD
+  remotes:
+    - https://github.com/boostorg/iterator
+  commit: 7b627fa6797b992e8114ce06bff76e15ae474ac6
+  sha256: 5c2a8681a8f13ae6c9fe48d1782647dbc7ddac34c91cb62429045df520049fce
+  targets:
+    - iterator
+  deps:
+    - "@boost_detail//:detail"
+    # transitive from detail
+    - "@boost_config//:config"
+    - "@boost_mpl//:mpl"
+    - "@boost_type_traits//:type_traits"
+    # transitive from type_traits
+    - "@boost_core//:core"
+    - "@boost_static_assert//:static_assert"
+    # transitive from mpl
+    - "@boost_preprocessor//:preprocessor"
+  smoke_tests:
+    - rule: cc_binary
+      name: pointee_import_test
+      deps:
+        - "@boost_iterator//:iterator"
+      source_files:
+        - pointee_import_test.cc

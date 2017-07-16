@@ -1,0 +1,19 @@
+- rule: new_http_archive
+  name: boost_winapi
+  version: 1.64.0
+  build_file: boost_winapi.BUILD
+  remotes:
+    - https://github.com/boostorg/winapi
+  commit: c3e8180be5090137cb3d40da04a354bffbda3d64
+  sha256: 04bc6907ad294254cc811d160bcfeaf3ca4f8cb0da03e7f339ad9884f5e18e1c
+  targets:
+    - winapi
+  deps:
+    - "@boost_config//:config"
+  smoke_tests:
+    - rule: cc_binary
+      name: system_import_test
+      deps:
+        - "@boost_winapi//:winapi"
+      source_files:
+        - system_import_test.cc

@@ -1,0 +1,21 @@
+- rule: new_http_archive
+  name: boost_conversion
+  version: 1.64.0
+  build_file: boost_conversion.BUILD
+  remotes:
+    - https://github.com/boostorg/conversion
+  commit: 51d544e6b8b596b194713e1d22824fbb9f547320
+  sha256: a88f1e6bdbb59dc2fd78a2356e2c3d66d9ab3eefb576bce1df76d36c0b738d9a
+  targets:
+    - conversion
+  deps:
+    - "@boost_assert//:assert"
+    - "@boost_config//:config"
+    - "@boost_throw_exception//:throw_exception"
+  smoke_tests:
+    - rule: cc_binary
+      name: polymorphic_cast_import_test
+      deps:
+        - "@boost_conversion//:conversion"
+      source_files:
+        - polymorphic_cast_import_test.cc

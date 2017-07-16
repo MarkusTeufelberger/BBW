@@ -1,0 +1,19 @@
+- rule: new_http_archive
+  name: boost_intrusive
+  version: 1.64.0
+  build_file: boost_intrusive.BUILD
+  remotes:
+    - https://github.com/boostorg/intrusive
+  commit: e6830cfe4c5db4fb279866439d02d03ae5407603
+  sha256: 21e504f1176e1dcc6b1333f4ab0753daf9a5f8fa5326e22a6c29edc2a3fc4aa7
+  targets:
+    - intrusive
+  deps:
+    - "@boost_config//:config"
+  smoke_tests:
+    - rule: cc_binary
+      name: intrusive_fwd_import_test
+      deps:
+        - "@boost_intrusive//:intrusive"
+      source_files:
+        - intrusive_fwd_import_test.cc

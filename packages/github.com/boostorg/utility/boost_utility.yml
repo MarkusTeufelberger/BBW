@@ -1,0 +1,25 @@
+- rule: new_http_archive
+  name: boost_utility
+  version: 1.64.0
+  build_file: boost_utility.BUILD
+  remotes:
+    - https://github.com/boostorg/utility
+  commit: 68b26cddbe6abf5e31670bbfe0d22b77678a20f4
+  sha256: 35da24decb0db37a073385a0dc4fcd46f7eb4dbb96d76cb54c6d8332fd3c90fc
+  targets:
+    - utility
+  deps:
+    - "@boost_core//:core"
+    - "@boost_preprocessor//:preprocessor"
+    - "@boost_type_traits//:type_traits"
+    # transitive from core
+    - "@boost_config//:config"
+    # transitive from type_traits
+    - "@boost_static_assert//:static_assert"
+  smoke_tests:
+    - rule: cc_binary
+      name: utility_import_test
+      deps:
+        - "@boost_utility//:utility"
+      source_files:
+        - utility_import_test.cc

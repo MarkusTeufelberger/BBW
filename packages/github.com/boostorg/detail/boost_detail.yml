@@ -1,0 +1,26 @@
+- rule: new_http_archive
+  name: boost_detail
+  version: 1.64.0
+  build_file: boost_detail.BUILD
+  remotes:
+    - https://github.com/boostorg/detail
+  commit: 6c111975865d112c11101ef8221695cc4cd57562
+  sha256: db4289b0aefdf338e7743aecb2a299811b882fc1d2e065a3aff377ab3adc333d
+  targets:
+    - detail
+  deps:
+    - "@boost_config//:config"
+    - "@boost_mpl//:mpl"
+    - "@boost_type_traits//:type_traits"
+    # transitive from mpl
+    - "@boost_preprocessor//:preprocessor"
+    # transitive from type_traits
+    - "@boost_core//:core"
+    - "@boost_static_assert//:static_assert"
+  smoke_tests:
+    - rule: cc_binary
+      name: blank_import_test
+      deps:
+        - "@boost_detail//:detail"
+      source_files:
+        - blank_import_test.cc

@@ -1,0 +1,21 @@
+- rule: new_http_archive
+  name: boost_type_traits
+  version: 1.64.0
+  build_file: boost_type_traits.BUILD
+  remotes:
+    - https://github.com/boostorg/type_traits
+  commit: 9e05c49c7d8dcf76368a4fcd1ad51aba2a0611db
+  sha256: f82fcf19c199223e0853cec660c6dccab2a758a08246b0d91df05d39034acdfb
+  targets:
+    - type_traits
+  deps:
+    - "@boost_config//:config"
+    - "@boost_core//:core"
+    - "@boost_static_assert//:static_assert"
+  smoke_tests:
+    - rule: cc_binary
+      name: type_traits_import_test
+      deps:
+        - "@boost_type_traits//:type_traits"
+      source_files:
+        - type_traits_import_test.cc

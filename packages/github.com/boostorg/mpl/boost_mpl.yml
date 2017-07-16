@@ -1,0 +1,20 @@
+- rule: new_http_archive
+  name: boost_mpl
+  version: 1.64.0
+  build_file: boost_mpl.BUILD
+  remotes:
+    - https://github.com/boostorg/mpl
+  commit: efc2a862a324ae2b509fa04b4bb48b98f5599f71
+  sha256: 851dff9986db52dd2a471b02b012be2ddcc4eba349d7a031ee6410932eea746d
+  targets:
+    - mpl
+  deps:
+    - "@boost_config//:config"
+    - "@boost_preprocessor//:preprocessor"
+  smoke_tests:
+    - rule: cc_binary
+      name: list_import_test
+      deps:
+        - "@boost_mpl//:mpl"
+      source_files:
+        - list_import_test.cc

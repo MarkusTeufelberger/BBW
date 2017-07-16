@@ -1,0 +1,27 @@
+- rule: new_http_archive
+  name: boost_smart_ptr
+  version: 1.64.0
+  build_file: boost_smart_ptr.BUILD
+  remotes:
+    - https://github.com/boostorg/smart_ptr
+  commit: 0085752a560f39d564fd0291c46d48e16ab1ce82
+  sha256: 478c3967c73135599b4f2411e05dc62b2c2613043bcd9b5c151a4f13bcb4ca55
+  targets:
+    - smart_ptr
+  deps:
+    - "@boost_assert//:assert"
+    - "@boost_config//:config"
+    - "@boost_core//:core"
+    - "@boost_move//:move"
+    - "@boost_predef//:predef"
+    - "@boost_throw_exception//:throw_exception"
+    - "@boost_type_traits//:type_traits"
+    # transitive from move
+    - "@boost_static_assert//:static_assert"
+  smoke_tests:
+    - rule: cc_binary
+      name: smart_ptr_import_test
+      deps:
+        - "@boost_smart_ptr//:smart_ptr"
+      source_files:
+        - smart_ptr_import_test.cc

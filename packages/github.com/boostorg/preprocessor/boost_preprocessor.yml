@@ -1,0 +1,17 @@
+- rule: new_http_archive
+  name: boost_preprocessor
+  version: 1.64.0
+  build_file: boost_preprocessor.BUILD
+  remotes:
+    - https://github.com/boostorg/preprocessor
+  commit: a6275942f3f2590da2e4708bea5d5779bd162ae7
+  sha256: 6f44ab657617015a6532491a9e83479921f041189ad6d8460a4776cb7b008ae7
+  targets:
+    - preprocessor
+  smoke_tests:
+    - rule: cc_binary
+      name: preprocessor_import_test
+      deps:
+        - "@boost_preprocessor//:preprocessor"
+      source_files:
+        - preprocessor_import_test.cc

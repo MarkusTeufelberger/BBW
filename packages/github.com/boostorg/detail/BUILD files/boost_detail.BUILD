@@ -1,8 +1,13 @@
 cc_library(
-    name = "config",
+    name = "detail",
     hdrs = glob([
         "include/boost/**/*.hpp",
     ]),
     strip_include_prefix = "include",
     visibility = ["//visibility:public"],
+    deps = [
+        "@boost_config//:config",
+        "@boost_mpl//:mpl",
+        "@boost_type_traits//:type_traits",
+    ],
 )

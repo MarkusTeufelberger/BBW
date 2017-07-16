@@ -20,6 +20,8 @@
   smoke_tests:
     - rule: cc_binary
       name: import_test
+      deps:
+        - "@lz4//:lz4"
       source_files:
         - lz4.cc
 
@@ -85,6 +87,8 @@
   smoke_tests:
     - rule: cc_binary
       name: import_test
+      deps:
+        - "@lz4//:lz4"
       source_files:
         - lz4_no_frame.cc
 
